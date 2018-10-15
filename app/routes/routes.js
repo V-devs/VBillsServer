@@ -5,9 +5,9 @@ module.exports = function(app, db) {
             const details = { name: body.name, price: body.price, tax: body.tax, category: body.category };
             db.collection('items').insert(details, (err, result) => {
                 if (err) {
-                    res.status(500).json({ error: "ERR_ADD" });
+                    res.status(500).json({ error: "ERROR_ADD" });
                 } else {
-                    res.status(200).json({ success: "SCSS_ADD" });
+                    res.status(200).json({ success: "SUCCESS_ADD" });
                 }
             });
         });
@@ -16,8 +16,8 @@ module.exports = function(app, db) {
             const details = { itemID: req.params.itemId };
             const newData = { name: body.name, price: body.price, tax: body.tax, category: body.category };
             db.collection('items').updateOne(details, newData, (err, scc) => {
-                if (err) res.status(500).json({ error: 'ERR_EDT' })
-                else res.status(200).json({ success: 'SCSS_EDT' });
+                if (err) res.status(500).json({ error: 'ERROR_EDIT' })
+                else res.status(200).json({ success: 'SUCCESS_EDIT' });
             })
         });
         app.post('/bills/add', (req, res) => {
@@ -25,9 +25,9 @@ module.exports = function(app, db) {
             const details = { num: body.num, items: json.parse(body.items), tax: body.tax, discount: body.discount, total: body.total, date: body.date, to: body.to };
             db.collection('bills').insert(details, (err, result) => {
                 if (err) {
-                    res.status(500).json({ error: "ERR_ADD" });
+                    res.status(500).json({ error: "ERROR_ADD" });
                 } else {
-                    res.status(200).json({ success: "SCSS_ADD" });
+                    res.status(200).json({ success: "SUCCESS_ADD" });
                 }
             });
         });
@@ -35,9 +35,9 @@ module.exports = function(app, db) {
             const details = { name: new RegExp('^' + req.params.name + "*") };
             db.collection('items').find(details).toArray((err, scc) => {
                 if (err) {
-                    res.status(500).json({ error: "ERR_RTRV" });
+                    res.status(500).json({ error: "ERROR_RETRIVE" });
                 } else {
-                    res.status(200).json({ success: "SCSS_RTRV", data: scc });
+                    res.status(200).json({ success: "SUCCESS_RETRIVE", data: scc });
                 }
             })
         });
